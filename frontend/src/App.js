@@ -1,29 +1,28 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { Button, Card, CardDeck, Container, Jumbotron, Nav, Navbar } from 'react-bootstrap';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import bvideo from "./backgroundVideo.mp4";
+import NavBar from "./components/navBar/NavBar";
+import SignUp from './components/signUp/SignUp';
 
-function App() {
+class App extends React.Component {
+
+  state = {
+    currentUser: null
+  }
   
-  return (<>
+  render(){
+  return (
+  <>
+  <Switch>
+      <Route path='/signup' exact component={SignUp}>
+        <SignUp />
+      </Route>
+    </Switch>
     <div>
-      {/* To be <LandingNavbar /> Component */}
-      <Container fluid>
-            <Navbar expand="lg" bg="light">
-              <Navbar.Brand className="navHeader">Nomz</Navbar.Brand>
-              <Nav className="container-fluid">
-                <Nav.Item className="ml-auto">
-                  {/* <Nav.Link>
-                    <Link to="/home"> */}
-                    <Button variant="success" size="sm">Log In</Button>{' '}
-                    {/* </Link> */}
-                    <Button variant="primary" size="sm">Sign Up</Button>
-                  {/* </Nav.Link> */}
-                </Nav.Item> 
-              </Nav>
-            </Navbar>
-            </Container> 
+      <NavBar currentUser={this.state.currentUser} handleLogout={this.handleLogout} />
     </div>
     <div>
       <Container fluid>
@@ -89,8 +88,12 @@ function App() {
       </CardDeck>
       </Container>
     </div>
-</>
+    
+  </>
   );
-}
+};
+};
 
 export default App;
+
+
