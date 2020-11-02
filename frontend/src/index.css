@@ -1,13 +1,391 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
+                    /* LANDING PAGE */
+
+                    
+                    /* HOME PAGE */
+  /* Container for Fridge,Freezer,Pantry Buttons*/
+.homepage {
+  margin-top: 20px;
+  padding: 30px 15px; 
+  justify-content: space-between;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  /* Container for Find&Add Recipe Buttons*/
+.homepage2 {
+  margin: 20px;
+  padding: 10px; 
+  justify-content: space-between;
+}
+
+  /* Align Center Find&Add Recipe Buttons*/
+.homeButton {
+  text-align: center;
+}
+
+
+                    /* KITCHEN PAGE */
+  /* Container for Sidebar */
+.sidebar {
+  margin: 20px;
+  padding: 10px;
+  justify-content: center;
+  text-align: center;
+  position: sticky;
+}
+
+.kitchen-ingred-container {
+  max-width: calc(100% - 96px);
+  margin: auto;
+  padding: 10px; 
+  justify-content: space-between;
+}
+
+  /* Re-Size Ingredient Icon top of Card*/
+.card-img-top {
+  width: 50%;
+  height: 25%;
+  object-fit: contain;
+}
+
+  /* Box for Ingredient Card */
+.ingredient-box {
+  border-radius: 10px 10px 10px 10px;
+  overflow: auto;
+  max-height: 430px;
+  padding: 5px;
+}
+
+  /* Grid to Display Ingredient Cards */
+.grid {
+  min-height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: flex-start;
+}
+
+  /* 5 Cards Per Row on Grid to Display Ingredient Cards */
+.grid > div {
+  width: calc(100% / 6);
+}
+
+  /* No Clue */
+.column {
+  padding: 10px
+}
+
+  /* No Clue */
+.column.side {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+  /* No Clue */
+.column.large {
+  -webkit-flex: 4;
+  -ms-flex: 4;
+  flex: 4;
+}
+
+  /* Kitchen Filter by Storage Container */
+.filter-container {
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+}
+
+  /* Kitchen Filter by Storage Buttons */
+/* .filter-button {
+  display: flex;
+  margin: 5px;
+  align-self: center;
+} */
+
+  /* Ingredient Card Header/Title Centered */
+.card-title {
+  text-align: center;
+}
+
+  /* Ingredient Card Body Centered */
+.card-text {
+  text-align: center; 
+}
+
+
+                    /* GROCERY PAGE */
+  /* Grocery List Grid */
+.grocery-grid {
+  min-height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+ /* Grocery List Card - 1 Per Row */
+.grocery-grid > div {
+  flex-basis: calc(100% - 40px)
+}
+
+ /* Grocery Card Box for Grocery List Grid */
+.grocery-box {
+  border-radius: 10px 10px 10px 10px;
+  overflow: auto;
+  margin: 5px;
+  max-width: 100%;
+  height: 150px;
+  border: 2px grey solid;
+  
+}
+
+ /* Grocery Card Image Formatted */
+.grocery-img {
+  margin: auto;
+  width: 50%;
+  height: 50%;
+  object-fit: contain;
+  align-self: center;
+}
+
+ /* Grocery Card Columns for Icon and Name */
+div.col-md-3 {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+ /* Grocery Card Columns for Buttons */
+div.col-md-6 {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+ /* Grocery Card Buttons */
+.grocery-list-button {
+  margin: 0 5px;
+}
+
+
+
+/* code to refactor */
+
+.nav-layout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+
+.button-spacing button {
+  margin-left: .5em;
+}
+
+.subnav {
+  background-color: #eaeaea;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: .5rem 1rem;
+}
+
+.subnav h3 {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+
+.subnav button {
+  margin-left: .5em;
+}
+
+.subnav-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+
+.subnav-search {
+  display: flex;
+  align-items: center;
+}
+
+.subnav-filter {
+  display: flex;
+  align-items: center;
+}
+
+.sticky-button {
+  position: sticky;
+  top: calc(100vh - 78px);
+  left: calc(100vw - 202px);
+  z-index: 10;
+}
+
+                    /* RECIPE SEARCH PAGE */
+.recipe-search-img {
+  margin: 1px;
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  align-self: center;
+}
+
+.recipe-search-img-col {
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.recipe-box {
+  border-radius: 10px 10px 10px 10px;
+  overflow: auto;
+  margin: 5px;
+  max-width: 100%;
+  min-height: 150px;
+  height: auto;
+  border: 2px grey solid;
+  flex-direction: row;
+}
+
+.recipe-collapse {
+  width: 100%;
+  margin: 5px;
+}
+
+.recipe-table {
+  width: 100%;
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin: auto;
+  text-align: center;
+}
+
+.recipe-row {
+  width: 100%;
+  height: 35px;
+  text-align: left; 
+}
+
+.recipe-cell {
+  border: 1px solid grey;
+  margin: auto;
+  max-width: 220px;
+  padding: 5px;
+  padding-left: 10px;
+}
+
+.jumbotron {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  height: 350px;
+}
+
+.jumbotron video {
+  position: absolute;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+
+.videoTag {
+  height: 100%;
+  width:100%;
+  top: 0;
+  left: 0;
+  object-fit: none;
+  padding: none;
+  position: fixed;
+}
+
+.navHeader {
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Caveat', cursive;
+}
+
+.homeHeader {
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Caveat', cursive;
+  font-size: 100px;
+}
+
+.homeSubHeader {
+  text-align: center;
+  font-size: 32px;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  padding-bottom: 12px;
+}
+
+.homePage-card-img-top {
+  width: 50%;
+  height: 25%;
+  object-fit: contain;
+  display: block;
+  padding-top: 5px;
+}
+
+.homePage-card-img-top-2 {
+  width: 50%;
+  height: 25%;
+  object-fit: contain;
+  display: block;
+  padding: 10px;
+}
+
+.home-card {
+  max-height: 300px;
+}
+
+.main-images {
+  max-width: 100%;
+  position: relative;
+  display: block;
+}
+
+.main-page {
+  margin-top: 200px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 30px 15px; 
+  justify-content: space-between;
+}
+
+.image-overlay{
+  position: absolute;
+  width: 95.2%;
+  top: 0;
+  height:100%;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.image-overlay:hover{
+  opacity: 1;
+}
+
+
+.image-title {
+  font-size: 3em;
+  font-weight: bold;
+  font-family: 'Caveat', cursive;
 }
