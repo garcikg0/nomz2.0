@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Col, Form } from 'react-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
+
 
 class SignUp extends React.Component {
     state = {
@@ -12,49 +13,63 @@ class SignUp extends React.Component {
     }
 
     handleChange = e => {
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({ [e.target.id]: e.target.value })
     }
 
     handleSubmit = e => {
         e.preventDeafult()
-
+        fetch("http://localhost:3000/users" , {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(this.state)
+        })
+        .then(r => r.json())
+        .then(newUser => {
+            this.props.handleLogin(newUser)
+        })
     }
 
     render() {
         const { first_name, last_name, username, bio, email, password} = this.state
-
+        console.log(this.state)
         return(
             <div>
                 <Form>
                     <Form.Row>
-                        <Form.Group as={Col} name="first_name" controlId="signUpFirstName">
+                        <Form.Group as={Col} controlId="first_name" onChange={this.handleChange}>
                             <Form.Label>First Name</Form.Label>
                             <Form.Control placeholder="First Name" />
                         </Form.Group>
-                        <Form.Group as={Col} name="last_name" controlId="signUpLastName">
+                        <Form.Group as={Col} controlId="last_name" onChange={this.handleChange}>
                             <Form.Label>Last Name</Form.Label>
                             <Form.Control placeholder="Last Name" />
                         </Form.Group>
                     </Form.Row>
 
-                    <Form.Group name="email" controlId="signUpEmail">
+                    <Form.Group controlId="email" onChange={this.handleChange}>
                         <Form.Label>Email</Form.Label>
                         <Form.Control placeholder="Enter your email address" />
                     </Form.Group>
 
-                    <Form.Group name="bio" controlId="signUpBio">
+                    <Form.Group controlId="bio" onChange={this.handleChange}>
                         <Form.Label>Bio</Form.Label>
                         <Form.Control as="textarea" rows={5} placeholder="Tell us a little about yourself" />
                     </Form.Group>
 
-                    <Form.Group name="username" controlId="signUpUsername">
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control placeholder="Enter your username" />
+                    <Form.Group as={Row} controlId="username" onChange={this.handleChange}>
+                        <Form.Label column sm={2}>Username</Form.Label>
+                        <Col sm={10}>
+                            <Form.Control placeholder="Enter your username" />
+                        </Col>
                     </Form.Group>
 
-                    <Form.Group name="password" controlId="signUpPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control placeholder="Enter your password" />
+                    <Form.Group as={Row} controlId="password" onChange={this.handleChange}>
+                        <Form.Label column sm={2}>Password</Form.Label>
+                        <Col sm={10}>
+                            <Form.Control type="password" placeholder="Enter your password" />
+                        </Col>
                     </Form.Group>
 
                     <Button variant="primary" type="submit">Submit</Button>
