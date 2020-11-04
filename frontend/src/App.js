@@ -7,6 +7,7 @@ import bvideo from "./backgroundVideo.mp4";
 import NavBar from "./components/navBar/NavBar";
 import SignUp from './components/signUp/SignUp';
 import HomePage from './components/homePage/HomePage';
+import Login from './components/logIn/LogIn';
 
 class App extends React.Component {
 
@@ -15,17 +16,54 @@ class App extends React.Component {
     isLoggingIn: false
   }
 
-  handleLogin = currentUser => {
-    this.setState({ currentUser }, () => {
+  componentDidMount() {
+    if (localStorage.token) {
+      fetch(`http://localhost:3000/autologin`, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.token}`
+        }
+      })
+      .then (r => r.json())
+      .then(data => {
+        if (!data.error)
+        this.handleLogin(data)
+      })
+    }
+  }
+
+  handleIsLoggingIn = (e) => {
+    let clicked = !this.state.isLoggingIn
+    this.setState({
+      isLoggingIn: clicked
+    })
+  }
+
+  handleCloseLogin = () => {
+    this.setState({
+      isLoggingIn: false
+    })
+  }
+
+  handleLogin = user => {
+    this.setState({ currentUser: user }, () => {
       this.props.history.push('/home')
+    })
+  }
+
+  handleLogout = () => {
+    localStorage.removeItem("token")
+    this.setState({
+      currentUser: null
     })
   }
   
   render(){
+    console.log(this.state.isLoggingIn)
   return (
   <>
   <div>
-  <NavBar currentUser={this.state.currentUser} handleLogout={this.handleLogout} />
+  <NavBar currentUser={this.state.currentUser} handleLogout={this.handleLogout} handleIsLoggingIn={this.handleIsLoggingIn} isLoggingIn={this.state.isLoggingIn} />
+  <Login isLoggingIn={this.state.isLoggingIn} handleCloseLogin={this.handleCloseLogin}/>
   </div>
   <Switch>
       <Route path='/signup' exact>

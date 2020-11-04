@@ -1,27 +1,57 @@
 import React from 'react';
-import { Modal } from 'react-bootstrap';
+import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 
 class Login extends React.Component {
     state = {
         username: "",
         password: "",
-        isLoggingIn: this.props.isLoggingIn
+        show: this.props.isLoggingIn
     };
 
     handleChange = e => {
         this.setState({ [e.target.id]: e.target.value })
     };
 
+    showLogIn = () => {
+        if (this.state.show === false && this.props.isLoggingIn === true) {
+            let newShow = this.props.isLoggingIn
+            this.setState({
+                show: newShow
+            })
+        } 
+    }
+
+    handleCloseLogin = () => {
+            this.setState({
+                show: false
+        })
+    }
+
     handleSubmit = e => {
         e.preventDefault();
+        fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(this.state)
+        })
+        .then(r => r.json())
+        .then(data => {
+            const { user, token } = data
+            this.props.handleLogin(user)
+            localStorage.token = token
+        })
     };
 
     render() {
+        this.showLogIn()
+        console.log(this.state.show)
         return(
             <Modal 
             size="lg"
-            show={isLoggingIn}
-            onHide={()=> !this.state.isLoggingIn } 
+            show={this.state.show}
+            onHide={() => this.handleCloseLogin} 
             centered
             >
                 <Modal.Header closeButton>
@@ -33,10 +63,10 @@ class Login extends React.Component {
                 <Form>
                     <Form.Group as={Row} controlId="formHorizontalEmail">
                         <Form.Label column sm={2}>
-                        Email
+                        Username
                         </Form.Label>
                         <Col sm={10}>
-                        <Form.Control type="email" placeholder="Email" />
+                        <Form.Control placeholder="Username" />
                         </Col>
                     </Form.Group>
 
@@ -58,6 +88,6 @@ class Login extends React.Component {
             
         )
     }
-}
+};
 
 export default Login;

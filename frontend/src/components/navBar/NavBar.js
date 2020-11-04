@@ -1,8 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import Login from "../logIn/LogIn"
 
-const NavBar = ({ currentUser, handleLogout }) => {
+const NavBar = ({ currentUser, handleLogout, handleIsLoggingIn, isLoggingIn, handleCloseLogin }) => {
+
+    const handleLoginClick = (e) => {
+        handleIsLoggingIn(e)
+        isLoggingIn = !isLoggingIn
+        console.log(isLoggingIn)
+        if (currentUser === null && isLoggingIn) {
+            return <Login isLoggingIn={isLoggingIn} />
+        }
+    }
+
+    const isHandleCloseLogin = () => {
+        this.handleCloseLogin()
+    }
+
+
+
     return(
         <Container fluid>
         <Navbar expand="lg" bg="light">
@@ -23,9 +40,7 @@ const NavBar = ({ currentUser, handleLogout }) => {
               ) : (
                 <Nav.Item className="ml-auto">
                 <Nav.Link>
-                    <Link to="/home">
-                        <Button variant="success" size="sm">Log In</Button>{' '}
-                    </Link>
+                        <Button variant="success" size="sm" onClick={handleLoginClick}>Log In</Button>{' '}
                     <Link to="/signup">
                         <Button variant="primary" size="sm">Sign Up </Button>
                     </Link>

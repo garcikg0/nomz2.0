@@ -26,17 +26,19 @@ class SignUp extends React.Component {
             body: JSON.stringify(this.state)
         })
         .then(r => r.json())
-        .then(newUser => {
-            this.props.handleLogin(newUser)
+        .then(data => {
+            const { user, token } = data
+            this.props.handleLogin(user)
+            localStorage.token = token
         })
     }
 
     render() {
-        const { first_name, last_name, username, bio, email, password} = this.state
+        // const { first_name, last_name, username, bio, email, password} = this.state
         console.log(this.state)
         return(
             <div>
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                     <Form.Row>
                         <Form.Group as={Col} controlId="first_name" onChange={this.handleChange}>
                             <Form.Label>First Name</Form.Label>
@@ -72,7 +74,7 @@ class SignUp extends React.Component {
                         </Col>
                     </Form.Group>
 
-                    <Button variant="primary" type="submit">Submit</Button>
+                    <Button variant="primary" type="submit">Sign Up</Button>
                 </Form>
             </div>
         )
