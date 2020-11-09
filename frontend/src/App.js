@@ -18,6 +18,7 @@ class App extends React.Component {
 
   componentDidMount() {
     if (localStorage.token) {
+      debugger
       fetch(`http://localhost:3000/autologin`, {
         headers: {
           "Authorization": `Bearer ${localStorage.token}`
@@ -45,6 +46,7 @@ class App extends React.Component {
   }
 
   handleLogin = currentUser => {
+    debugger
     this.setState({ currentUser }, () => {
       debugger
       this.props.history.push('/home')
@@ -71,8 +73,7 @@ class App extends React.Component {
         <SignUp handleLogin={this.handleLogin}/>
       </Route>
       <Route path='/home' exact>
-        {this.state.currentUser ? 
-        <HomePage currentUser={this.state.currentUser} updateUser={this.updateUser} /> : <Redirect to='/' />}
+        {this.state.currentUser ? <HomePage currentUser={this.state.currentUser} updateUser={this.updateUser} /> : <Redirect to='/' />}
       </Route>
       <Route path='/' exact>
         <div>

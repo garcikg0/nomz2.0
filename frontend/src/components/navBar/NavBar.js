@@ -14,9 +14,9 @@ const NavBar = ({ currentUser, handleLogout, handleIsLoggingIn, isLoggingIn, han
         }
     }
 
-    const isHandleCloseLogin = () => {
-        this.handleCloseLogin()
-    }
+    // const isHandleCloseLogin = () => {
+    //     this.handleCloseLogin()
+    // }
 
 
 
@@ -39,12 +39,10 @@ const NavBar = ({ currentUser, handleLogout, handleIsLoggingIn, isLoggingIn, han
               </Nav.Item>
               ) : (
                 <Nav.Item className="ml-auto">
-                <Nav.Link>
                         <Button variant="success" size="sm" onClick={handleLoginClick}>Log In</Button>{' '}
                     <Link to="/signup">
                         <Button variant="primary" size="sm">Sign Up </Button>
                     </Link>
-                </Nav.Link>
           </Nav.Item>     
               )}
           </Nav>

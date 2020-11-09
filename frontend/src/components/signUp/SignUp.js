@@ -13,10 +13,11 @@ class SignUp extends React.Component {
     }
 
     handleChange = e => {
-        this.setState({ [e.target.id]: e.target.value })
+        this.setState({ [e.target.name]: e.target.value })
     }
 
     handleSubmit = e => {
+        debugger
         e.preventDeafult()
         debugger
         fetch("http://localhost:3000/users" , {
@@ -39,7 +40,72 @@ class SignUp extends React.Component {
         const { first_name, last_name, username, bio, email, password} = this.state
         console.log(this.state)
         return(
-            <div>
+            <form onSubmit={this.handleSubmit}>
+                <h1>Sign Up</h1>
+
+                <label>First Name</label>
+                <input
+                type="text"
+                name="first_name"
+                autoComplete="off"
+                value={first_name}
+                onChange={this.handleChange}
+                />
+
+                <label>Last Name</label>
+                <input
+                type="text"
+                name="last_name"
+                autoComplete="off"
+                value={last_name}
+                onChange={this.handleChange}
+                />
+
+                <label>Email</label>
+                <input
+                type="text"
+                name="email"
+                autoComplete="off"
+                value={email}
+                onChange={this.handleChange}
+                />
+
+                <label>Bio</label>
+                <textarea
+                type="text"
+                name="bio"
+                autoComplete="off"
+                value={bio}
+                onChange={this.handleChange}
+                />
+
+                <label>Username</label>
+                <input
+                type="text"
+                name="username"
+                autoComplete="off"
+                value={username}
+                onChange={this.handleChange}
+                />
+
+                <label>Password</label>
+                <input
+                type="text"
+                name="password"
+                autoComplete="off"
+                value={password}
+                onChange={this.handleChange}
+                />
+
+                <input type="submit" value="Signup" />
+            </form>
+        )
+    }
+}
+
+export default SignUp;
+
+{/* <div>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Row>
                         <Form.Group as={Col} controlId="first_name" onChange={this.handleChange}>
@@ -78,9 +144,4 @@ class SignUp extends React.Component {
 
                     <Button variant="primary" type="submit">Sign Up</Button>
                 </Form>
-            </div>
-        )
-    }
-}
-
-export default SignUp;
+            </div> */}
