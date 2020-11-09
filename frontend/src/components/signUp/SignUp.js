@@ -17,9 +17,7 @@ class SignUp extends React.Component {
     }
 
     handleSubmit = e => {
-        debugger
-        e.preventDeafult()
-        debugger
+        e.preventDefault()
         fetch("http://localhost:3000/users" , {
             method: "POST",
             headers: {
@@ -30,7 +28,6 @@ class SignUp extends React.Component {
         .then(r => r.json())
         .then(data => {
             const { user, token } = data
-            debugger
             this.props.handleLogin(user)
             localStorage.token = token
         })
