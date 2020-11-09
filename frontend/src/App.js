@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { Card, CardDeck, Container, Jumbotron } from 'react-bootstrap';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -44,8 +44,9 @@ class App extends React.Component {
     })
   }
 
-  handleLogin = user => {
-    this.setState({ currentUser: user }, () => {
+  handleLogin = currentUser => {
+    this.setState({ currentUser }, () => {
+      debugger
       this.props.history.push('/home')
     })
   }
@@ -145,6 +146,6 @@ class App extends React.Component {
 };
 };
 
-export default App;
+export default withRouter(App);
 
 
