@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { Card, CardDeck, Container, Jumbotron } from 'react-bootstrap';
 import './index.css';
@@ -9,16 +9,15 @@ import SignUp from './components/signUp/SignUp';
 import HomePage from './components/homePage/HomePage';
 import Login from './components/logIn/LogIn';
 
-class App extends React.Component {
+const App = () => {
 
   state = {
     currentUser: null,
-    isLoggingIn: false
+    showLogin: false
   }
 
   componentDidMount() {
     if (localStorage.token) {
-      debugger
       fetch(`http://localhost:3000/autologin`, {
         headers: {
           "Authorization": `Bearer ${localStorage.token}`
@@ -32,23 +31,8 @@ class App extends React.Component {
     }
   }
 
-  handleIsLoggingIn = (e) => {
-    let clicked = !this.state.isLoggingIn
-    this.setState({
-      isLoggingIn: clicked
-    })
-  }
-
-  handleCloseLogin = () => {
-    this.setState({
-      isLoggingIn: false
-    })
-  }
-
   handleLogin = currentUser => {
-    debugger
     this.setState({ currentUser }, () => {
-      debugger
       this.props.history.push('/home')
     })
   }
@@ -59,14 +43,19 @@ class App extends React.Component {
       currentUser: null
     })
   }
+
+  handleShowLogin = () => {
+    let currentShowLogin = this.state.showLogin
+    this.setState({
+      showLogin: !currentShowLogin
+    })
+  }
   
-  render(){
-    console.log(this.state.isLoggingIn)
   return (
   <>
   <div>
-  <NavBar currentUser={this.state.currentUser} handleLogout={this.handleLogout} handleIsLoggingIn={this.handleIsLoggingIn} isLoggingIn={this.state.isLoggingIn} />
-  <Login isLoggingIn={this.state.isLoggingIn} handleCloseLogin={this.handleCloseLogin}/>
+  <NavBar currentUser={this.state.currentUser} handleLogout={this.handleLogout} handleShowLogin={this.handleShowLogin}/>
+  <Login handleLogin={this.handleLogin} showLogin={this.state.showLogin} />
   </div>
   <Switch>
       <Route path='/signup' exact>
@@ -144,7 +133,6 @@ class App extends React.Component {
     </Switch>
   </>
   );
-};
 };
 
 export default withRouter(App);

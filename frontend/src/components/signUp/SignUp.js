@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Form, Row } from 'react-bootstrap';
+// import { Button, Col, Form, Row } from 'react-bootstrap';
 
 
 class SignUp extends React.Component {
@@ -35,7 +35,6 @@ class SignUp extends React.Component {
 
     render() {
         const { first_name, last_name, username, bio, email, password} = this.state
-        console.log(this.state)
         return(
             <form onSubmit={this.handleSubmit}>
                 <h1>Sign Up</h1>

@@ -1,24 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
-import Login from "../logIn/LogIn"
 
-const NavBar = ({ currentUser, handleLogout, handleIsLoggingIn, isLoggingIn, handleCloseLogin }) => {
+const NavBar = ({ currentUser, handleShowLogin }) => {
 
     const handleLoginClick = (e) => {
-        handleIsLoggingIn(e)
-        isLoggingIn = !isLoggingIn
-        console.log(isLoggingIn)
-        if (currentUser === null && isLoggingIn) {
-            return <Login isLoggingIn={isLoggingIn} />
-        }
-    }
-
-    // const isHandleCloseLogin = () => {
-    //     this.handleCloseLogin()
-    // }
-
-
+        handleShowLogin()
+    };
 
     return(
         <Container fluid>

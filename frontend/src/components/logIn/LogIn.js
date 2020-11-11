@@ -1,33 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 
-class Login extends React.Component {
-    state = {
+const Login = ({handleLogin, showLogIn}) => {
+
+    const [loginData, setLoginData] = useState({
         username: "",
-        password: "",
-        show: this.props.isLoggingIn
-    };
+        password: ""
+    })
 
-    handleChange = e => {
-        this.setState({ [e.target.id]: e.target.value })
-    };
+    const [showLogin, setShowLogin] = useState(false)
 
-    showLogIn = () => {
-        if (this.state.show === false && this.props.isLoggingIn === true) {
-            let newShow = this.props.isLoggingIn
-            this.setState({
-                show: newShow
-            })
-        } 
-    }
-
-    handleCloseLogin = () => {
-            this.setState({
-                show: false
+    const handleChange = e => {
+        const value = e.target.value;
+        const name = e.target.name;
+        
+        setLoginData({
+            ...loginData,
+            [name]: value
         })
-    }
+    };
 
-    handleSubmit = e => {
+    const handleSubmit = e => {
         e.preventDefault();
         fetch("http://localhost:3000/login", {
             method: "POST",
@@ -44,24 +37,18 @@ class Login extends React.Component {
         })
     };
 
-    render() {
-        this.showLogIn()
-        console.log(this.state.show)
-        return(
-            <Modal 
+    return (
+        <Modal 
             size="lg"
-            show={this.state.show}
-            onHide={() => this.handleCloseLogin} 
-            centered
-            >
+            show={showLogin}
+            onHide={() => this.handleCloseLogin()} 
+            centered >
                 <Modal.Header closeButton>
-                    <Modal.Title id="login-modal">
-                        Log In
-                    </Modal.Title>
+                    <Modal.Title id="login-modal">Log In</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <Form>
-                    <Form.Group as={Row} controlId="formHorizontalEmail">
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group as={Row} controlId="username" onChange={handleChange} >
                         <Form.Label column sm={2}>
                         Username
                         </Form.Label>
@@ -70,7 +57,7 @@ class Login extends React.Component {
                         </Col>
                     </Form.Group>
 
-                    <Form.Group as={Row} controlId="formHorizontalPassword">
+                    <Form.Group as={Row} controlId="password" onChange={handleChange} >
                         <Form.Label column sm={2}>
                         Password
                         </Form.Label>
@@ -82,12 +69,29 @@ class Login extends React.Component {
                     <Form.Group as={Row}>
                         <Button type="submit">Sign In </Button>
                     </Form.Group>
-                    </Form>
+                </Form>
                 </Modal.Body>
-            </Modal>
-            
-        )
-    }
+        </Modal>
+    )      
 };
 
 export default Login;
+
+
+
+// class Login extends React.Component {
+   
+
+    
+
+//     render() {
+//         this.showLogIn()
+//         console.log(this.state)
+//         return(
+            
+            
+//         )
+//     }
+// };
+
+// export default Login;
