@@ -1,20 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 
-const NavBar = ({ currentUser, handleShowLogin }) => {
+const NavBar = ({ currentUser, handleShowLogin, handleLogout }) => {
 
     const handleLoginClick = (e) => {
         e.preventDefault()
         handleShowLogin()
     };
-    console.log(currentUser)
+
+    const handleLogoutClick = (e) => {
+        e.preventDefault()
+        handleLogout()
+    }
+
+    const [currentUserState, setCurrentUserState] = useState(currentUser)
+
+    useEffect(() => {
+        let newCurrentUser = currentUser
+        setCurrentUserState(newCurrentUser)
+    }, [currentUser] )
+    
     return(
         <Container fluid>
         <Navbar expand="lg" bg="light">
           <Navbar.Brand className="navHeader">Nomz</Navbar.Brand>
           <Nav className="container-fluid">
-              {currentUser ? (
+              {currentUserState ? (
                   <Nav.Item className="ml-auto">
                   <Nav className="button-spacing">
                       <Link to="/myrecipes">
@@ -23,7 +35,7 @@ const NavBar = ({ currentUser, handleShowLogin }) => {
                       <Link to="/groceries">
                       <Button variant="outline-success">Grocery list</Button>{'   '}
                       </Link>
-                      <Button variant="outline-danger">Log Out</Button>
+                      <Button variant="outline-danger" onClick={handleLogoutClick}>Log Out</Button>
                   </Nav>
               </Nav.Item>
               ) : (

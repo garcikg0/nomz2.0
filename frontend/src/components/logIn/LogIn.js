@@ -30,7 +30,7 @@ const Login = ({handleLogin, showLoginState, handleShowLogin }) => {
         .then(r => r.json())
         .then(data => {
             const { user, token } = data
-            handleLogin(user)
+            handleLogin( {user} )
             localStorage.token = token
         });
         handleShowLogin()

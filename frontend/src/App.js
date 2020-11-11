@@ -24,31 +24,28 @@ const App = () => {
       })
       .then (r => r.json())
       .then(data => {
-        if (!data.error)
-        this.handleLogin(data)
+        if (!data.error) {
+          handleLogin(data)
+        }
       })
     }
-  }, [currentUser]);
+  }, []);
 
   const handleLogin = ( user ) => {
-    console.log(user)
-    setCurrentUser( user );
-    console.log(currentUser) 
-    console.log(localStorage.token)
+    setCurrentUser( user )
     history.push('/home')
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token")
     setCurrentUser(null)
-  }
+    history.push('/')
+  };
 
   const handleShowLogin = () => {
     let currentShowLogin = showLogin
     setShowLogin( !currentShowLogin )
-  }
-
-  console.log(currentUser)
+  };
   
   return (
   <>
