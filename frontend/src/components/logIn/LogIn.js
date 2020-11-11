@@ -35,7 +35,7 @@ const Login = ({handleLogin, showLoginState, handleShowLogin }) => {
         });
         handleShowLogin()
     };
-    console.log(loginData)
+    
     return (
         <Modal 
             size="lg"

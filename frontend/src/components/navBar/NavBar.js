@@ -5,9 +5,10 @@ import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 const NavBar = ({ currentUser, handleShowLogin }) => {
 
     const handleLoginClick = (e) => {
+        e.preventDefault()
         handleShowLogin()
     };
-
+    console.log(currentUser)
     return(
         <Container fluid>
         <Navbar expand="lg" bg="light">

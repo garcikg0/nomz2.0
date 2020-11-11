@@ -31,7 +31,10 @@ const App = () => {
   }, [currentUser]);
 
   const handleLogin = ( user ) => {
-    setCurrentUser( user ); 
+    console.log(user)
+    setCurrentUser( user );
+    console.log(currentUser) 
+    console.log(localStorage.token)
     history.push('/home')
   };
 
@@ -44,7 +47,9 @@ const App = () => {
     let currentShowLogin = showLogin
     setShowLogin( !currentShowLogin )
   }
+
   console.log(currentUser)
+  
   return (
   <>
   <div>
