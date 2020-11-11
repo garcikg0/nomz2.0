@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 
-const Login = ({handleLogin, showLogIn}) => {
+const Login = ({handleLogin, showLoginState, handleShowLogin }) => {
 
     const [loginData, setLoginData] = useState({
         username: "",
         password: ""
-    })
-
-    const [showLogin, setShowLogin] = useState(false)
+    });
 
     const handleChange = e => {
         const value = e.target.value;
-        const name = e.target.name;
+        const name = e.target.id;
         
         setLoginData({
             ...loginData,
@@ -27,21 +25,22 @@ const Login = ({handleLogin, showLogIn}) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(this.state)
+            body: JSON.stringify(loginData)
         })
         .then(r => r.json())
         .then(data => {
             const { user, token } = data
-            this.props.handleLogin(user)
+            handleLogin(user)
             localStorage.token = token
-        })
+        });
+        handleShowLogin()
     };
-
+    console.log(loginData)
     return (
         <Modal 
             size="lg"
-            show={showLogin}
-            onHide={() => this.handleCloseLogin()} 
+            show={showLoginState}
+            onHide={handleShowLogin} 
             centered >
                 <Modal.Header closeButton>
                     <Modal.Title id="login-modal">Log In</Modal.Title>
@@ -76,22 +75,3 @@ const Login = ({handleLogin, showLogIn}) => {
 };
 
 export default Login;
-
-
-
-// class Login extends React.Component {
-   
-
-    
-
-//     render() {
-//         this.showLogIn()
-//         console.log(this.state)
-//         return(
-            
-            
-//         )
-//     }
-// };
-
-// export default Login;

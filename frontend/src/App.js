@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter, useHistory } from 'react-router-dom';
 import { Card, CardDeck, Container, Jumbotron } from 'react-bootstrap';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -11,12 +11,11 @@ import Login from './components/logIn/LogIn';
 
 const App = () => {
 
-  state = {
-    currentUser: null,
-    showLogin: false
-  }
+  const [currentUser, setCurrentUser] = useState(null)
+  const [showLogin, setShowLogin] = useState(false)
+  let history = useHistory()
 
-  componentDidMount() {
+  useEffect(() => {
     if (localStorage.token) {
       fetch(`http://localhost:3000/autologin`, {
         headers: {
@@ -29,40 +28,36 @@ const App = () => {
         this.handleLogin(data)
       })
     }
-  }
+  }, [currentUser]);
 
-  handleLogin = currentUser => {
-    this.setState({ currentUser }, () => {
-      this.props.history.push('/home')
-    })
-  }
+  const handleLogin = ( user ) => {
+    setCurrentUser( user ); 
+    history.push('/home')
+  };
 
-  handleLogout = () => {
+  const handleLogout = () => {
     localStorage.removeItem("token")
-    this.setState({
-      currentUser: null
-    })
+    setCurrentUser(null)
   }
 
-  handleShowLogin = () => {
-    let currentShowLogin = this.state.showLogin
-    this.setState({
-      showLogin: !currentShowLogin
-    })
+  const handleShowLogin = () => {
+    let currentShowLogin = showLogin
+    setShowLogin( !currentShowLogin )
   }
-  
+  console.log(currentUser)
   return (
   <>
   <div>
-  <NavBar currentUser={this.state.currentUser} handleLogout={this.handleLogout} handleShowLogin={this.handleShowLogin}/>
-  <Login handleLogin={this.handleLogin} showLogin={this.state.showLogin} />
+  <NavBar currentUser={currentUser} handleLogout={handleLogout} handleShowLogin={handleShowLogin}/>
+  <Login handleLogin={handleLogin} showLoginState={showLogin} handleShowLogin={handleShowLogin}/>
   </div>
   <Switch>
       <Route path='/signup' exact>
-        <SignUp handleLogin={this.handleLogin}/>
+        <SignUp handleLogin={handleLogin}/>
       </Route>
       <Route path='/home' exact>
-        {this.state.currentUser ? <HomePage currentUser={this.state.currentUser} updateUser={this.updateUser} /> : <Redirect to='/' />}
+        {/* {currentUser ? <HomePage currentUser={currentUser} updateUser={updateUser} /> : <Redirect to='/' />} */}
+        {currentUser ? <HomePage currentUser={currentUser} /> : <Redirect to='/' />}
       </Route>
       <Route path='/' exact>
         <div>
