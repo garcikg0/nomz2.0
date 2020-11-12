@@ -47,6 +47,8 @@ const App = () => {
     setShowLogin( !currentShowLogin )
   };
   
+  console.log(currentUser)
+  
   return (
   <>
   <div>

@@ -15,9 +15,6 @@ class HomePage extends React.Component {
 
     render() {
         return(<>
-            <div >
-                <NavBar />
-            </div>
             <div className="main-page">
                 <Row>
                     <Col>

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 
 const NavBar = ({ currentUser, handleShowLogin, handleLogout }) => {
+    
+    const [currentUserState, setCurrentUserState] = useState(currentUser)
 
     const handleLoginClick = (e) => {
         e.preventDefault()
@@ -14,17 +16,18 @@ const NavBar = ({ currentUser, handleShowLogin, handleLogout }) => {
         handleLogout()
     }
 
-    const [currentUserState, setCurrentUserState] = useState(currentUser)
+    console.log(currentUserState)
 
     useEffect(() => {
         let newCurrentUser = currentUser
         setCurrentUserState(newCurrentUser)
     }, [currentUser] )
-    
+
     return(
         <Container fluid>
         <Navbar expand="lg" bg="light">
           <Navbar.Brand className="navHeader">Nomz</Navbar.Brand>
+            
           <Nav className="container-fluid">
               {currentUserState ? (
                   <Nav.Item className="ml-auto">
