@@ -16,8 +16,6 @@ const NavBar = ({ currentUser, handleShowLogin, handleLogout }) => {
         handleLogout()
     }
 
-    console.log(currentUserState)
-
     useEffect(() => {
         let newCurrentUser = currentUser
         setCurrentUserState(newCurrentUser)
